@@ -15,7 +15,12 @@ cred = credentials.Certificate(firebase_credentials)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-@app.route('api/pregnancy/english/week/<int:week>', methods=['GET'])
+@app.route('/')
+def main_route():
+    print("💡 Ping received on /")
+    return jsonify({"message": "pong"}), 200
+
+@app.route('/api/pregnancy/english/week/<int:week>', methods=['GET'])
 def get_pregnancy_week_english(week):
     if week < 1 or week > 40:
         return jsonify({"error": "Invalid week. Please provide a week between 1 and 40."}), 400
@@ -50,4 +55,4 @@ def internal_server_error(e):
     return jsonify({"error": "An unexpected error occurred. Please try again later."}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
