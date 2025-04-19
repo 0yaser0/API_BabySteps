@@ -15,7 +15,7 @@ cred = credentials.Certificate(firebase_credentials)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-@app.route('/api/pregnancy/english/week/<int:week>', methods=['GET'])
+@app.route('api/pregnancy/english/week/<int:week>', methods=['GET'])
 def get_pregnancy_week_english(week):
     if week < 1 or week > 40:
         return jsonify({"error": "Invalid week. Please provide a week between 1 and 40."}), 400

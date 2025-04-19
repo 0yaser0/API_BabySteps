@@ -5,7 +5,7 @@ import requests
 def keep_alive():
     while True:
         try:
-            requests.get("https://apibabysteps-production.up.railway.app")
+            requests.get("https://apibabysteps-production.up.railway.app/")
             print("✅ Keep-alive ping sent")
         except Exception as e:
             print("❌ Keep-alive failed:", e)
