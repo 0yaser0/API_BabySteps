@@ -38,6 +38,42 @@ def get_pregnancy_week_english(week):
     else:
         return jsonify({"error": "No data found for the specified week."}), 404
 
+@app.route('/api/pregnancy/frensh/week/<int:week>', methods=['GET'])
+def get_pregnancy_week_frensh(week):
+    if week < 1 or week > 40:
+        return jsonify({"error": "Invalid week. Please provide a week between 1 and 40."}), 400
+
+    doc_ref = db.collection('pregnancy_weeks_frensh').document(f'week_{week}')
+    doc = doc_ref.get()
+
+    if doc.exists:
+        data = doc.to_dict()
+        return jsonify({
+            "week": data.get("week"),
+            "follow_up": data.get("follow_up"),
+            "advice": data.get("advice")
+        }), 200
+    else:
+        return jsonify({"error": "No data found for the specified week."}), 404
+
+@app.route('/api/pregnancy/arabe/week/<int:week>', methods=['GET'])
+def get_pregnancy_week_arabe(week):
+    if week < 1 or week > 40:
+        return jsonify({"error": "Invalid week. Please provide a week between 1 and 40."}), 400
+
+    doc_ref = db.collection('pregnancy_weeks_arabe').document(f'week_{week}')
+    doc = doc_ref.get()
+
+    if doc.exists:
+        data = doc.to_dict()
+        return jsonify({
+            "week": data.get("week"),
+            "follow_up": data.get("follow_up"),
+            "advice": data.get("advice")
+        }), 200
+    else:
+        return jsonify({"error": "No data found for the specified week."}), 404
+
 @app.errorhandler(404)
 def page_not_found(e):
     return jsonify({"error": "Endpoint not found. Please check the URL and try again."}), 404
